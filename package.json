@@ -1,8 +1,10 @@
 {
     "name": "nodered-owasys4-demo-full",
-    "description": "Demo con múltimples aplicaciones del owasys con varias interfaces",
+    "description": "Demo con múltiples aplicaciones del owasys con varias interfaces",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-contrib-buffer-parser": "3.2.2"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",

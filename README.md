@@ -1,7 +1,7 @@
 nodered-owasys4-demo-full
 =========================
 
-Demo con múltimples aplicaciones del owasys con varias interfaces
+Demo con múltiples aplicaciones del owasys con varias interfaces
 
 ### About
 
