@@ -32,6 +32,14 @@
         "env": []
     },
     {
+        "id": "a0714677ab9c896e",
+        "type": "tab",
+        "label": "CAN",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c1eb665110bf8caf",
         "type": "tab",
         "label": "VSE",
@@ -245,6 +253,11 @@
         "showErrors": false,
         "showWarnings": true,
         "showLogs": true
+    },
+    {
+        "id": "1f21c1168e04bfbf",
+        "type": "socketcan-config",
+        "interface": "can1"
     },
     {
         "id": "f1632e3bd92b44c4",
@@ -2982,6 +2995,36 @@
         "info": "",
         "x": 490,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d3207d802094eda3",
+        "type": "socketcan-out",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-out",
+        "config": "1f21c1168e04bfbf",
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "63a6f659083b346e"
+            ]
+        ]
+    },
+    {
+        "id": "63a6f659083b346e",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 186",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 80,
         "wires": []
     },
     {
