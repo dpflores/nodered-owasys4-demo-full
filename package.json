@@ -3,7 +3,8 @@
     "description": "Demo con múltiples aplicaciones del owasys con varias interfaces",
     "version": "0.0.1",
     "dependencies": {
-        "node-red-contrib-buffer-parser": "3.2.2"
+        "node-red-contrib-buffer-parser": "3.2.2",
+        "node-red-contrib-modbus": "5.30.0"
     },
     "node-red": {
         "settings": {
