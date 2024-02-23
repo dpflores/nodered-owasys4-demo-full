@@ -40,6 +40,14 @@
         "env": []
     },
     {
+        "id": "534144cff1f827d8",
+        "type": "tab",
+        "label": "SERIAL",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c1eb665110bf8caf",
         "type": "tab",
         "label": "VSE",
@@ -258,6 +266,66 @@
         "id": "1f21c1168e04bfbf",
         "type": "socketcan-config",
         "interface": "can1"
+    },
+    {
+        "id": "3e21672a1337e71a",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "/dev/ttyO1",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "5e0f27e27383492d",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "/dev/ttyO4",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "beab563033819665",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "/dev/ttyO5",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
     },
     {
         "id": "f1632e3bd92b44c4",
@@ -3931,6 +3999,106 @@
                 "cf1f035ca2c24363"
             ]
         ]
+    },
+    {
+        "id": "746189fcb14450cb",
+        "type": "serial in",
+        "z": "534144cff1f827d8",
+        "name": "UART1",
+        "serial": "3e21672a1337e71a",
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "6a1b1f33b230f90f"
+            ]
+        ]
+    },
+    {
+        "id": "dc2dda2d5656634f",
+        "type": "serial in",
+        "z": "534144cff1f827d8",
+        "name": "UART4",
+        "serial": "5e0f27e27383492d",
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "75af29ebebbc36c2"
+            ]
+        ]
+    },
+    {
+        "id": "4dd2c2406572358d",
+        "type": "serial in",
+        "z": "534144cff1f827d8",
+        "name": "UART5",
+        "serial": "beab563033819665",
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "68753106d1d816f9"
+            ]
+        ]
+    },
+    {
+        "id": "6a1b1f33b230f90f",
+        "type": "debug",
+        "z": "534144cff1f827d8",
+        "name": "debug 193",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "75af29ebebbc36c2",
+        "type": "debug",
+        "z": "534144cff1f827d8",
+        "name": "debug 194",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "68753106d1d816f9",
+        "type": "debug",
+        "z": "534144cff1f827d8",
+        "name": "debug 195",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1696076c816c3d48",
+        "type": "comment",
+        "z": "534144cff1f827d8",
+        "name": "RS232",
+        "info": "",
+        "x": 250,
+        "y": 60,
+        "wires": []
     },
     {
         "id": "1563dafc93693ecf",

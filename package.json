@@ -5,7 +5,8 @@
     "dependencies": {
         "node-red-contrib-buffer-parser": "3.2.2",
         "node-red-contrib-modbus": "5.30.0",
-        "node-red-contrib-socketcan": "1.2.9"
+        "node-red-contrib-socketcan": "1.2.9",
+        "node-red-node-serialport": "2.0.2"
     },
     "node-red": {
         "settings": {
