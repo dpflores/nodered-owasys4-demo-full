@@ -2,16 +2,16 @@
     {
         "id": "590aed86c3482a18",
         "type": "tab",
-        "label": "BASIC",
-        "disabled": false,
+        "label": "GPIO",
+        "disabled": true,
         "info": "",
         "env": []
     },
     {
         "id": "3e5f70faaba22eaf",
         "type": "tab",
-        "label": "GPS",
-        "disabled": false,
+        "label": "GNSS",
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -19,7 +19,7 @@
         "id": "28e78ef9de4617d8",
         "type": "tab",
         "label": "IO-LINK",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -27,15 +27,15 @@
         "id": "b380fede0a5e6e03",
         "type": "tab",
         "label": "MODBUS-TCP",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
     {
         "id": "a0714677ab9c896e",
         "type": "tab",
-        "label": "CAN",
-        "disabled": false,
+        "label": "CAN-BUS",
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -2793,14 +2793,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 280,
+        "x": 290,
         "y": 320,
         "wires": [
             [
@@ -3016,7 +3016,7 @@
         "type": "debug",
         "z": "a0714677ab9c896e",
         "name": "debug 186",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3026,6 +3026,911 @@
         "x": 550,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "52b67063118e4f74",
+        "type": "comment",
+        "z": "a0714677ab9c896e",
+        "name": "Raw CAN Data",
+        "info": "",
+        "x": 220,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "962e3f52356f0fa6",
+        "type": "comment",
+        "z": "a0714677ab9c896e",
+        "name": "CAN OBD2 possible PIDS (manually)",
+        "info": "",
+        "x": 250,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e0f73dc48f5a645e",
+        "type": "socketcan-in",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-in",
+        "config": "1f21c1168e04bfbf",
+        "x": 530,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4f5c189ae68073e6",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "function 6",
+        "func": "// const SERVICE_CURRENT_DATA = \"1\"\n// const SERVICE_VEHICLE_INFORMATION = \"9\"\nconst service_int = 1;\nconst pid = msg.payload;\nconst arbitration_id = 2015 //0x7DF\n\nconst ob2_request = {\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":arbitration_id,\n    \"dlc\":8,\n    \"data\":[2, service_int, pid, 0, 0, 0, 0, 0]\n}\n\nmsg.payload = ob2_request;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 420,
+        "wires": [
+            [
+                "e0f73dc48f5a645e"
+            ]
+        ]
+    },
+    {
+        "id": "9ca31203609ed83c",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "3c44cf6222fb9e9d",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "32",
+        "payloadType": "num",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "f0fa23a60709cb33",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 740,
+        "wires": [
+            [
+                "f0fa565d80901f43"
+            ]
+        ]
+    },
+    {
+        "id": "f0fa565d80901f43",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "send multiple (0-31)",
+        "func": "// const SERVICE_CURRENT_DATA = \"1\"\n// const SERVICE_VEHICLE_INFORMATION = \"9\"\nconst service_int = 1;\nconst arbitration_id = 2015 //0x7DF\n\nfunction ob2_request(pid) {\n\n    const json = {\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":arbitration_id,\n    \"dlc\":8,\n    \"data\":[2, service_int, pid, 0, 0, 0, 0, 0]\n    }\n\n    return json\n}\n\n// Bucle for con delay\nfor (var x = 0; x < 32; x++) {\n    // Se utiliza una función para encapsular el valor actual de x\n    (function (index) {\n        setTimeout(() => {\n            node.send({ payload: ob2_request(index) });\n        }, index * 500); // Se agrega un delay de 100 ms multiplicado por el índice\n    })(x);\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 740,
+        "wires": [
+            [
+                "efd2c56988237be5",
+                "09c51e7f060e9f65"
+            ]
+        ]
+    },
+    {
+        "id": "2a34c705158c9ae6",
+        "type": "comment",
+        "z": "a0714677ab9c896e",
+        "name": "CAN OBD2 data (multiple data)",
+        "info": "",
+        "x": 230,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "efd2c56988237be5",
+        "type": "socketcan-in",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-in",
+        "config": "1f21c1168e04bfbf",
+        "x": 570,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "09c51e7f060e9f65",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 190",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "0b487f834c0baa3b",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 900,
+        "wires": [
+            [
+                "534e6834127fe532"
+            ]
+        ]
+    },
+    {
+        "id": "534e6834127fe532",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "send multiple (32-63)",
+        "func": "// const SERVICE_CURRENT_DATA = \"1\"\n// const SERVICE_VEHICLE_INFORMATION = \"9\"\nconst service_int = 1;\nconst arbitration_id = 2015 //0x7DF\n\nfunction ob2_request(pid) {\n\n    const json = {\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":arbitration_id,\n    \"dlc\":8,\n    \"data\":[2, service_int, pid, 0, 0, 0, 0, 0]\n    }\n\n    return json\n}\n\n// Bucle for con delay\nfor (var x = 32; x < 64; x++) {\n    // Se utiliza una función para encapsular el valor actual de x\n    (function (index) {\n        setTimeout(() => {\n            node.send({ payload: ob2_request(index) });\n        }, index * 500); // Se agrega un delay de 100 ms multiplicado por el índice\n    })(x);\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 900,
+        "wires": [
+            [
+                "d534e6d3c8072fa9"
+            ]
+        ]
+    },
+    {
+        "id": "d534e6d3c8072fa9",
+        "type": "socketcan-in",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-in",
+        "config": "1f21c1168e04bfbf",
+        "x": 570,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "2a6bad41026705de",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "64",
+        "payloadType": "num",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "976f414616ead2d1",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "64",
+        "payloadType": "num",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f5ea266a6effc5f",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "128",
+        "payloadType": "num",
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "4479f825e94273c2",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "160",
+        "payloadType": "num",
+        "x": 170,
+        "y": 580,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "48989edc89310051",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "192",
+        "payloadType": "num",
+        "x": 170,
+        "y": 620,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "e65b5ae9ab2df595",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "96",
+        "payloadType": "num",
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "4f5c189ae68073e6"
+            ]
+        ]
+    },
+    {
+        "id": "b8d0a1c0505b2760",
+        "type": "socketcan-out",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-out",
+        "config": "1f21c1168e04bfbf",
+        "x": 750,
+        "y": 420,
+        "wires": [
+            [
+                "28f16184a75e79e5"
+            ]
+        ]
+    },
+    {
+        "id": "28f16184a75e79e5",
+        "type": "switch",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "property": "payload.canid",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2024",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 420,
+        "wires": [
+            [
+                "8356ee2a5b944180"
+            ]
+        ]
+    },
+    {
+        "id": "8356ee2a5b944180",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 187",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7a17f5dcbb64e558",
+        "type": "socketcan-out",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-out",
+        "config": "1f21c1168e04bfbf",
+        "x": 110,
+        "y": 1280,
+        "wires": [
+            [
+                "30c6d79fdaea71a8"
+            ]
+        ]
+    },
+    {
+        "id": "30c6d79fdaea71a8",
+        "type": "switch",
+        "z": "a0714677ab9c896e",
+        "name": "ECU data",
+        "property": "payload.canid",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2024",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 1280,
+        "wires": [
+            [
+                "4f639c9bf9da2137"
+            ]
+        ]
+    },
+    {
+        "id": "4f639c9bf9da2137",
+        "type": "switch",
+        "z": "a0714677ab9c896e",
+        "name": "PID data",
+        "property": "payload.data[2]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "04",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "12",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "13",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "17",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 440,
+        "y": 1280,
+        "wires": [
+            [
+                "b5b73a170904e9d7"
+            ],
+            [
+                "c3dc8329116c4e93"
+            ],
+            [
+                "a20ad448334c9cf2"
+            ],
+            [
+                "f74bf2f6d8acce1e"
+            ]
+        ]
+    },
+    {
+        "id": "54b6264d70abdff4",
+        "type": "comment",
+        "z": "a0714677ab9c896e",
+        "name": "CAN OBD2 data (selected data)",
+        "info": "",
+        "x": 210,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "b3f985467a1de3f3",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[4, 12, 13, 17]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 1180,
+        "wires": [
+            [
+                "ca4a4ddc63dd7605"
+            ]
+        ]
+    },
+    {
+        "id": "ca4a4ddc63dd7605",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "send  selected",
+        "func": "// const SERVICE_CURRENT_DATA = \"1\"\n// const SERVICE_VEHICLE_INFORMATION = \"9\"\nconst service_int = 1;\nconst arbitration_id = 2015; //0x7DF\n\nconst selected_data = msg.payload;\n\nfunction ob2_request(pid) {\n\n    const json = {\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":arbitration_id,\n    \"dlc\":8,\n    \"data\":[2, service_int, pid, 0, 0, 0, 0, 0]\n    }\n\n    return json\n}\n\n// Bucle for con delay\nfor (var x = 0; x < selected_data.length; x++) {\n    // Se utiliza una función para encapsular el valor actual de x\n    (function (index) {\n        setTimeout(() => {\n            node.send({ payload: ob2_request(selected_data[index]) });\n        }, index * 500); // Se agrega un delay de 100 ms multiplicado por el índice\n    })(x);\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 1180,
+        "wires": [
+            [
+                "c45c072f7f1a1574"
+            ]
+        ]
+    },
+    {
+        "id": "c45c072f7f1a1574",
+        "type": "socketcan-in",
+        "z": "a0714677ab9c896e",
+        "name": "socketcan-in",
+        "config": "1f21c1168e04bfbf",
+        "x": 510,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "b5b73a170904e9d7",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "Engine Load (%)",
+        "func": "const a_byte = msg.payload.data[3];\nconst b_byte = msg.payload.data[4]; \nconst c_byte = msg.payload.data[5]; \nconst d_byte = msg.payload.data[6]; \n\nmsg.payload = a_byte*100/255;\nmsg.name = \"engineload\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1240,
+        "wires": [
+            [
+                "901480c98ce1dcf7"
+            ]
+        ]
+    },
+    {
+        "id": "c3dc8329116c4e93",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "Engine Speed (rpm)",
+        "func": "const a_byte = msg.payload.data[3];\nconst b_byte = msg.payload.data[4]; \nconst c_byte = msg.payload.data[5]; \nconst d_byte = msg.payload.data[6]; \n\nmsg.payload = (256*a_byte + b_byte)/4;\nmsg.name = \"enginespeed\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1280,
+        "wires": [
+            [
+                "901480c98ce1dcf7"
+            ]
+        ]
+    },
+    {
+        "id": "a20ad448334c9cf2",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "Vehicle Speed (km/h)",
+        "func": "const a_byte = msg.payload.data[3];\nconst b_byte = msg.payload.data[4]; \nconst c_byte = msg.payload.data[5]; \nconst d_byte = msg.payload.data[6]; \n\nmsg.payload = a_byte;\nmsg.name = \"vehiclespeed\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1320,
+        "wires": [
+            [
+                "901480c98ce1dcf7"
+            ]
+        ]
+    },
+    {
+        "id": "f74bf2f6d8acce1e",
+        "type": "function",
+        "z": "a0714677ab9c896e",
+        "name": "Throttle position (%)",
+        "func": "const a_byte = msg.payload.data[3];\nconst b_byte = msg.payload.data[4]; \nconst c_byte = msg.payload.data[5]; \nconst d_byte = msg.payload.data[6]; \n\nmsg.payload = a_byte*100/255;\nmsg.name = \"throttleposition\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1360,
+        "wires": [
+            [
+                "901480c98ce1dcf7"
+            ]
+        ]
+    },
+    {
+        "id": "901480c98ce1dcf7",
+        "type": "join",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "name",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 970,
+        "y": 1320,
+        "wires": [
+            [
+                "1888ce2fc48fc610"
+            ]
+        ]
+    },
+    {
+        "id": "1888ce2fc48fc610",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 191",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "4a93dd6cf1667cac",
+        "type": "split",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 510,
+        "y": 1520,
+        "wires": [
+            [
+                "797f086df5d2ba4a",
+                "cf1f035ca2c24363"
+            ]
+        ]
+    },
+    {
+        "id": "cf1f035ca2c24363",
+        "type": "join",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 710,
+        "y": 1520,
+        "wires": [
+            [
+                "fba0f8b2ff91c765"
+            ]
+        ]
+    },
+    {
+        "id": "91616846bbe04e71",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"a\":1,\"b\":2,\"c\":3}",
+        "payloadType": "json",
+        "x": 260,
+        "y": 1520,
+        "wires": [
+            [
+                "4a93dd6cf1667cac"
+            ]
+        ]
+    },
+    {
+        "id": "797f086df5d2ba4a",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 191",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "fba0f8b2ff91c765",
+        "type": "debug",
+        "z": "a0714677ab9c896e",
+        "name": "debug 192",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "1de341d220c004a4",
+        "type": "inject",
+        "z": "a0714677ab9c896e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "parts",
+                "v": "{\"key\":\"ab\", \"index\":4}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 1600,
+        "wires": [
+            [
+                "cf1f035ca2c24363"
+            ]
+        ]
     },
     {
         "id": "1563dafc93693ecf",
