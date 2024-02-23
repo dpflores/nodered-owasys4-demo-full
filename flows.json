@@ -3,7 +3,7 @@
         "id": "2bb69ce9fdc0e4b7",
         "type": "tab",
         "label": "CONFIG",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -59,6 +59,14 @@
         "id": "c1eb665110bf8caf",
         "type": "tab",
         "label": "VSE",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4d6f67f4a594680b",
+        "type": "tab",
+        "label": "MYSQL",
         "disabled": true,
         "info": "",
         "env": []
@@ -334,6 +342,16 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
+    },
+    {
+        "id": "b52f8ca91cb83408",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "acme_db",
+        "tz": "",
+        "charset": "UTF8"
     },
     {
         "id": "f1632e3bd92b44c4",
@@ -4338,5 +4356,84 @@
                 "7a2d6993c8d2c8e7"
             ]
         ]
+    },
+    {
+        "id": "3223fc87ed3e56b9",
+        "type": "mysql",
+        "z": "4d6f67f4a594680b",
+        "mydb": "b52f8ca91cb83408",
+        "name": "",
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "499eb6cccf51064e"
+            ]
+        ]
+    },
+    {
+        "id": "0f52902d25de155c",
+        "type": "inject",
+        "z": "4d6f67f4a594680b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "ff3afa48a1616d97"
+            ]
+        ]
+    },
+    {
+        "id": "ff3afa48a1616d97",
+        "type": "function",
+        "z": "4d6f67f4a594680b",
+        "name": "function 7",
+        "func": "msg.topic = `SHOW TABLES;`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "3223fc87ed3e56b9"
+            ]
+        ]
+    },
+    {
+        "id": "499eb6cccf51064e",
+        "type": "debug",
+        "z": "4d6f67f4a594680b",
+        "name": "debug 196",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 140,
+        "wires": []
     }
 ]
