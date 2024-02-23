@@ -1474,7 +1474,7 @@
         "id": "7ed5d88b383069db",
         "type": "exec",
         "z": "2bb69ce9fdc0e4b7",
-        "command": "sudo /home/debian/can1 125000",
+        "command": "sudo /home/debian/can1.sh 125000",
         "addpay": "",
         "append": "",
         "useSpawn": "false",
