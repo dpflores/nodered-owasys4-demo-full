@@ -1,5 +1,13 @@
 [
     {
+        "id": "2bb69ce9fdc0e4b7",
+        "type": "tab",
+        "label": "CONFIG",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "590aed86c3482a18",
         "type": "tab",
         "label": "GPIO",
@@ -1402,6 +1410,134 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "63fa325ce0154241",
+        "type": "comment",
+        "z": "2bb69ce9fdc0e4b7",
+        "name": "Podemos configurar el baudrate CAN y el WIFI desde acá",
+        "info": "",
+        "x": 290,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c704548e4529e3ed",
+        "type": "inject",
+        "z": "2bb69ce9fdc0e4b7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "8277f7865118b122"
+            ]
+        ]
+    },
+    {
+        "id": "8277f7865118b122",
+        "type": "exec",
+        "z": "2bb69ce9fdc0e4b7",
+        "command": "sudo /home/debian/wifi.sh Del 1234567890",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7ed5d88b383069db",
+        "type": "exec",
+        "z": "2bb69ce9fdc0e4b7",
+        "command": "sudo /home/debian/can1 125000",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 420,
+        "y": 320,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e815352137b19926",
+        "type": "inject",
+        "z": "2bb69ce9fdc0e4b7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "7ed5d88b383069db"
+            ]
+        ]
+    },
+    {
+        "id": "bc7d43e396af5b10",
+        "type": "comment",
+        "z": "2bb69ce9fdc0e4b7",
+        "name": "Conectamos a la red \"Del\" con la contraseña \"1234567890\"",
+        "info": "",
+        "x": 290,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "57fee5c2d0087816",
+        "type": "comment",
+        "z": "2bb69ce9fdc0e4b7",
+        "name": "Cambiamos la interfaz can1 con un baudrate de 125000",
+        "info": "",
+        "x": 280,
+        "y": 280,
+        "wires": []
     },
     {
         "id": "0bcb82a47162c769",
