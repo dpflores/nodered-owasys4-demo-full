@@ -77,8 +77,29 @@
         "name": "Data Filter",
         "info": "",
         "category": "",
-        "in": [],
-        "out": [],
+        "in": [
+            {
+                "x": 160,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "f609c24213207429"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 960,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "9a319f2f1d0da5e6",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#DDAA99"
@@ -200,6 +221,50 @@
                 "name": "MASTER_IP",
                 "type": "str",
                 "value": "192.168.82.75"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "1f0c16da922601cf",
+        "type": "subflow",
+        "name": "IO - Link Port Out",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 240,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "4eeb9503d5863bc3"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 940,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "0d1ad58e408887a3",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "PORT",
+                "type": "num",
+                "value": "1"
+            },
+            {
+                "name": "MASTER_IP",
+                "type": "str",
+                "value": "192.168.10.75"
             }
         ],
         "meta": {},
@@ -1754,6 +1819,48 @@
         ]
     },
     {
+        "id": "0d1ad58e408887a3",
+        "type": "http request",
+        "z": "1f0c16da922601cf",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "${MASTER_IP}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4eeb9503d5863bc3",
+        "type": "function",
+        "z": "1f0c16da922601cf",
+        "name": "SET PORT DATA",
+        "func": "\n\nmsg.payload = {\n  \"code\": \"request\",\n  \"cid\": 1,\n  \"adr\": `/iolinkmaster/port[${env.get(\"PORT\")}]/iolinkdevice/pdout/setdata`,\n  \"data\": {\n    \"newvalue\": `${msg.payload}`\n  }\n}\n   \n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "0d1ad58e408887a3"
+            ]
+        ]
+    },
+    {
         "id": "63fa325ce0154241",
         "type": "comment",
         "z": "2bb69ce9fdc0e4b7",
@@ -3017,7 +3124,8 @@
         "y": 740,
         "wires": [
             [
-                "666b0a4373831147"
+                "666b0a4373831147",
+                "6c554b7ce563157f"
             ]
         ]
     },
@@ -3082,7 +3190,8 @@
         "y": 840,
         "wires": [
             [
-                "9f4fc80006b95755"
+                "9f4fc80006b95755",
+                "2dfb447c89c12189"
             ]
         ]
     },
@@ -3204,7 +3313,11 @@
         "name": "",
         "x": 730,
         "y": 840,
-        "wires": []
+        "wires": [
+            [
+                "4345b1ff3cc9bff0"
+            ]
+        ]
     },
     {
         "id": "6c554b7ce563157f",
@@ -3213,7 +3326,11 @@
         "name": "",
         "x": 730,
         "y": 740,
-        "wires": []
+        "wires": [
+            [
+                "f4035a1f3449b3ca"
+            ]
+        ]
     },
     {
         "id": "9f4fc80006b95755",
@@ -3265,6 +3382,100 @@
         "info": "",
         "x": 280,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "446fbd50c288fe9e",
+        "type": "subflow:1f0c16da922601cf",
+        "z": "28e78ef9de4617d8",
+        "name": "",
+        "env": [
+            {
+                "name": "PORT",
+                "value": "8",
+                "type": "num"
+            }
+        ],
+        "x": 510,
+        "y": 960,
+        "wires": [
+            [
+                "738430098b1fad20"
+            ]
+        ]
+    },
+    {
+        "id": "ecee7e18dfc223df",
+        "type": "inject",
+        "z": "28e78ef9de4617d8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0000",
+        "payloadType": "str",
+        "x": 270,
+        "y": 940,
+        "wires": [
+            [
+                "446fbd50c288fe9e"
+            ]
+        ]
+    },
+    {
+        "id": "bdd8953f70431b57",
+        "type": "inject",
+        "z": "28e78ef9de4617d8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0001",
+        "payloadType": "str",
+        "x": 270,
+        "y": 980,
+        "wires": [
+            [
+                "446fbd50c288fe9e"
+            ]
+        ]
+    },
+    {
+        "id": "738430098b1fad20",
+        "type": "debug",
+        "z": "28e78ef9de4617d8",
+        "name": "debug 199",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 960,
         "wires": []
     },
     {
